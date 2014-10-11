@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131013164425) do
+ActiveRecord::Schema.define(version: 20141011153927) do
 
   create_table "leagues", force: true do |t|
     t.string   "name"
@@ -81,9 +81,11 @@ ActiveRecord::Schema.define(version: 20131013164425) do
   create_table "teams", force: true do |t|
     t.string   "reference"
     t.string   "location"
-    t.integer  "league_id",  null: false
+    t.integer  "league_id",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "logo_offset_x"
+    t.integer  "logo_offset_y"
   end
 
   add_index "teams", ["league_id"], name: "index_teams_on_league_id", using: :btree

@@ -4,10 +4,8 @@ module PicksHelper
     buffer = []
     selected = false
     if(is_home == true)
-      team = team.reference
       pickVal = 0
     else
-      team = team.reference
       pickVal = 1
     end
     selected = (pick.winner == pickVal)
@@ -17,17 +15,23 @@ module PicksHelper
     buffer << ', '
     buffer << pickVal
     buffer << ')"'
-    buffer << ' class="pick_link '
+    buffer << ' class="pick_link'
     if(is_home)
-      buffer << 'home'
+      buffer << ' home'
     else
-      buffer << 'away'
+      buffer << ' away'
     end
     if(selected)
       buffer << ' selected'
     end
-    buffer << '">'
-    buffer << team
+    buffer << '" style="background-image: url(\'/images/'
+    buffer << team.league.name
+    buffer << '.jpg\'); background-position-x: -'
+    buffer << team.logo_offset_x.to_i
+    buffer << 'px; background-position-y: -'
+    buffer << team.logo_offset_y.to_i
+    buffer <<'px;">'
+    buffer << team.reference
     buffer << '</div>'
 
     return raw buffer.join('')
