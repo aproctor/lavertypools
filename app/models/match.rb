@@ -10,4 +10,18 @@ class Match < ActiveRecord::Base
   def long_name()
     return "#{away_team.long_name} @ #{home_team.long_name}"
   end
+
+  ###
+  # Returns the leading team value based on spread
+  # 0 = home
+  # 1 = away
+  ##
+  def spread_leader
+    score = self.home_score - self.away_score + spread
+    if(score > 0)
+      return 0
+    else
+      return 1
+    end
+  end
 end

@@ -7,6 +7,7 @@
       <th><%= model_class.human_attribute_name(:spread) %></th>
       <th><%= model_class.human_attribute_name(:home_score) %></th>
       <th><%= model_class.human_attribute_name(:away_score) %></th>
+      <th>Spread Leader</th>
       <% unless(hide_league) %>
       <th><%= model_class.human_attribute_name(:league_id) %></th>
       <% end %>
@@ -21,6 +22,7 @@
         <td><%= match.spread %></td>
         <td><%= match.home_score %></td>
         <td><%= match.away_score %></td>
+        <td><%= leader_name(match) %></td>
         <% unless(hide_league) %>
         <td><%= match.league.long_name %></td>
         <% end %>
