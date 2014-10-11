@@ -18,11 +18,14 @@
 
 .pick_link {
   display: inline-block;
-  border: 1px solid black;
+  border: 5px solid rgba(0,0,0,0);
+  width: 100px;
+  height: 100px;
   margin-right: 10px;
   padding: 10px;
+  text-align: center;
 }
 
 .pick_link.selected {
-  color: red;
+  border-color: lightgreen;
 }
