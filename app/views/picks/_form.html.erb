@@ -5,8 +5,8 @@ pool = pick.pool
 <td><%= pick.match.long_name %></td>
 <td><%= pick.match.spread %></td>
 <td id="pick_<%=pick.id%>_row">
-<%= pick_link(pick, pick.match.home_team, true) %>
 <%= pick_link(pick, pick.match.away_team, false) %>
+<%= pick_link(pick, pick.match.home_team, true) %>
 <%= form_for pick, :html => { :class => 'ajax hidden' } do |f| %>
   <%= f.hidden_field :player_id %>
   <%= f.hidden_field :match_id %>
