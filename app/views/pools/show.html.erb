@@ -14,13 +14,13 @@ Players
     </tr>
   </thead>
   <tbody>
-<% @pool.players.each do |player| %>
+<% @sorted_players.each do |sp| %>
   <tr>
     <td>
-      <%= player.name %>
+      <%= sp[:player].name %>
     </td>
-    <td>score here</td>
-    <td><%= link_to "Picks", picks_setup_path({player_id: player.id, pool_id: @pool.id}) %></td>
+    <td><%= sp[:score] %></td>
+    <td><%= link_to "Picks", picks_setup_path({player_id: sp[:player].id, pool_id: @pool.id}) %></td>
   </tr>
 <% end %>
 </tbody>

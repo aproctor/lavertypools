@@ -10,6 +10,11 @@ class PoolsController < ApplicationController
   # GET /pools/1
   # GET /pools/1.json
   def show
+    @sorted_players = []
+    @pool.players.each do |player|
+      @sorted_players << {:score => player.score_for_pool(@pool), :player => player}
+    end
+    @sorted_players = @sorted_players.sort {|a,b| b[:score] <=> a[:score]}
   end
 
   # GET /pools/new
