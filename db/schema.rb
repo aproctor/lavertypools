@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20131013164425) do
   end
 
   create_table "players_pools", force: true do |t|
-    t.integer "player_id"
-    t.integer "pool_id"
+    t.integer "player_id", null: false
+    t.integer "pool_id",   null: false
   end
 
   create_table "pools", force: true do |t|
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20131013164425) do
   create_table "teams", force: true do |t|
     t.string   "reference"
     t.string   "location"
-    t.integer  "league_id"
+    t.integer  "league_id",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
