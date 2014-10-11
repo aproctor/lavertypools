@@ -8,14 +8,18 @@ Players
 <table class="table table-striped">
   <thead>
     <tr>
+      <th width="50px">Rank</th>
       <th>Player</th>
       <th>Score</th>
       <th>Picks</th>
     </tr>
   </thead>
   <tbody>
-<% @sorted_players.each do |sp| %>
+<% @sorted_players.each_with_index do |sp, i| %>
   <tr>
+    <td>
+      <%=i + 1%>
+    </td>
     <td>
       <%= sp[:player].name %>
     </td>
