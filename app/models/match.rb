@@ -11,6 +11,14 @@ class Match < ActiveRecord::Base
     return "#{away_team.long_name} @ #{home_team.long_name}"
   end
 
+  def spread_long
+    favored_team = home_team.reference
+    if(spread > 0)
+      favored_team = away_team.reference
+    end
+    return "#{favored_team} favored by #{spread.abs} points"
+  end
+
   ###
   # Returns the leading team value based on spread
   # 0 = home

@@ -3,7 +3,7 @@ pick ||= @pick
 pool = pick.pool
 %>
 <td><%= pick.match.long_name %></td>
-<td><%= pick.match.spread %></td>
+<td><%= pick.match.spread_long %></td>
 <td id="pick_<%=pick.id%>_row">
 <%= pick_link(pick, pick.match.away_team, false) %>
 <%= pick_link(pick, pick.match.home_team, true) %>
