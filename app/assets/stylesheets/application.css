@@ -29,3 +29,17 @@
 .pick_link.selected {
   border-color: lightgreen;
 }
+
+#join_pool {
+  width: 400px;
+  margin-top: 10px;
+}
+
+#join_pool > * {
+  float: left;
+  margin-right: 10px;
+}
+
+#join_pool > label {
+  line-height: 30px;
+}

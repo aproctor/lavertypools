@@ -30,18 +30,14 @@ Players
 </tbody>
 <tfoot>
   <tr><td colspan="3">
-  <%= form_tag(picks_setup_path, method: "get") do %>
-    <%= label_tag(:player_name, "Name:") %>
-    <%= text_field_tag(:player_name) %>
-    <%= hidden_field_tag(:pool_id, @pool.id) %>
-    <%= submit_tag("Join Pool") %>
+  <%= form_tag(picks_setup_path, method: "get", id: "join_pool") do %><%= label_tag(:player_name, "Name:") %><%= text_field_tag(:player_name) %><%= hidden_field_tag(:pool_id, @pool.id) %><%= submit_tag("Join Pool", class: "btn btn-success") %>
   <% end %>
   </td></tr>
 </tfoot>
 </table>
 
 
-<%= render :partial => 'matches/match_list', :locals => {matches: @pool.matches, hide_league: true} %>
+<%= render :partial => 'matches/match_list', :locals => {matches: @pool.matches, hide_league: true, hide_actions: true} %>
 <%= link_to "Add Match",
             new_match_path,
             :class => 'btn btn-primary' %>

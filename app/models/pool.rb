@@ -4,6 +4,6 @@ class Pool < ActiveRecord::Base
   has_many :players, through: :players_pools
 
   def matches
-    return Match.in_range(self.start_time, self.end_time)
+    return Match.in_range(self.start_time, self.end_time).order(:start_time)
   end
 end
