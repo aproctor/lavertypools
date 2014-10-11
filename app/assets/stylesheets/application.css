@@ -26,6 +26,7 @@
   text-align: center;
   color: white;
   text-shadow: 1px 1px black;
+  box-shadow: 1px 1px black;
 }
 
 .pick_link.selected {
