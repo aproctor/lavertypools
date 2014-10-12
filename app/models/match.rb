@@ -23,13 +23,16 @@ class Match < ActiveRecord::Base
   # Returns the leading team value based on spread
   # 0 = home
   # 1 = away
+  # -1 = push
   ##
   def spread_leader
     score = self.home_score - self.away_score + spread
     if(score > 0)
       return 0
-    else
+    elsif(score < 0)
       return 1
+    else
+      return -1
     end
   end
 end
