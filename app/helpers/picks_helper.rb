@@ -14,7 +14,7 @@ module PicksHelper
     buffer << pick.id
     buffer << ', '
     buffer << pickVal
-    buffer << ')"'
+    buffer << '); return false;"'
     buffer << ' class="pick_link'
     if(is_home)
       buffer << ' home'

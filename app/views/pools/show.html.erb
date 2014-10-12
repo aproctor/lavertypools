@@ -4,7 +4,6 @@
               edit_pool_path(@pool)%></h1>
 </div>
 
-Players
 <table class="table table-striped">
   <thead>
     <tr>
@@ -51,6 +50,3 @@ Players
 
 
 <%= render :partial => 'matches/match_list', :locals => {matches: @pool.matches, hide_league: true, hide_actions: true} %>
-<%= link_to "Add Match",
-            new_match_path,
-            :class => 'btn btn-primary' %>
