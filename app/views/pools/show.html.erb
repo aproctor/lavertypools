@@ -10,15 +10,28 @@ Players
     <tr>
       <th width="50px">Rank</th>
       <th>Player</th>
-      <th>Score</th>
-      <th>Picks</th>
+      <th width="15px">Score</th>
+      <th width="50px">Picks</th>
     </tr>
   </thead>
   <tbody>
-<% @sorted_players.each_with_index do |sp, i| %>
+<% prev_rank = 0
+  prev_score = -1
+  rank = 0
+
+ @sorted_players.each_with_index do |sp, i|
+  if(prev_score == -1 || sp[:score] < prev_score)
+    rank = i + 1
+    prev_score = sp[:score]
+    prev_rank = rank
+  else
+    rank = prev_rank
+  end
+
+%>
   <tr>
     <td>
-      <%=i + 1%>
+      <%= rank %>
     </td>
     <td>
       <%= sp[:player].name %>
