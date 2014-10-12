@@ -42,7 +42,11 @@
 </tbody>
 <tfoot>
   <tr><td colspan="3">
-  <%= form_tag(picks_setup_path, method: "get", id: "join_pool") do %><%= label_tag(:player_name, "Name:") %><%= text_field_tag(:player_name) %><%= hidden_field_tag(:pool_id, @pool.id) %><%= submit_tag("Join Pool", class: "btn btn-success") %>
+  <% if @pool.locked? %>
+    Pool has started
+  <% else %>
+    <%= form_tag(picks_setup_path, method: "get", id: "join_pool") do %><%= label_tag(:player_name, "Name:") %><%= text_field_tag(:player_name) %><%= hidden_field_tag(:pool_id, @pool.id) %><%= submit_tag("Join Pool", class: "btn btn-success") %>
+    <% end %>
   <% end %>
   </td></tr>
 </tfoot>

@@ -3,6 +3,7 @@ module PicksHelper
   def pick_link(pick, team, is_home)
     buffer = []
     selected = false
+    locked = pick.pool.locked?
     if(is_home == true)
       pickVal = 0
     else
@@ -10,11 +11,14 @@ module PicksHelper
     end
     selected = (pick.winner == pickVal)
 
-    buffer << '<div onclick="setPick(this, '
-    buffer << pick.id
-    buffer << ', '
-    buffer << pickVal
-    buffer << '); return false;"'
+    buffer << '<div'
+    if(locked == false)
+      buffer << ' onclick="setPick(this, '
+      buffer << pick.id
+      buffer << ', '
+      buffer << pickVal
+      buffer << '); return false;"'
+    end
     buffer << ' class="pick_link'
     if(is_home)
       buffer << ' home'

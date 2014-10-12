@@ -6,4 +6,13 @@ class Pool < ActiveRecord::Base
   def matches
     return Match.in_range(self.start_time, self.end_time).order(:start_time)
   end
+
+  def locked?
+    matches.each do |m|
+      if(m.start_time < Time.zone.now)
+        return true
+      end
+    end
+    return false
+  end
 end
