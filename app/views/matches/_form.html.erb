@@ -8,13 +8,13 @@
   <div class="control-group">
     <%= f.label :home_team_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :home_team_id, Team.all.collect {|l| [l.long_name, l.id]} %>
+      <%= f.select :home_team_id, Team.all.order(:long_name).collect {|l| [l.long_name, l.id]} %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :away_team_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :away_team_id, Team.all.collect {|l| [l.long_name, l.id]} %>
+      <%= f.select :away_team_id, Team.all.order(:long_name).collect {|l| [l.long_name, l.id]} %>
     </div>
   </div>
   <div class="control-group">
@@ -47,13 +47,13 @@
   <div class="control-group">
     <%= f.label :start_time, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :start_time, :class => 'text_field datepicker', :value => (@match.start_time || Time.now).to_formatted_s()  %>
+      <%= f.text_field :start_time, :class => 'text_field datepicker', :value => (@match.start_time || Time.zone.now).to_formatted_s()  %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :end_time, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :end_time, :class => 'text_field datepicker', :value => (@match.end_time || (Time.now + 1.days)).to_formatted_s()  %>
+      <%= f.text_field :end_time, :class => 'text_field datepicker', :value => (@match.end_time || (Time.zone.now + 1.days)).to_formatted_s()  %>
     </div>
   </div>
 
