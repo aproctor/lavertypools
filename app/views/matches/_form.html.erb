@@ -8,13 +8,13 @@
   <div class="control-group">
     <%= f.label :home_team_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :home_team_id, Team.all.order(:long_name).collect {|l| [l.long_name, l.id]} %>
+      <%= f.select :home_team_id, Team.all.order(:location).collect {|l| [l.long_name, l.id]} %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :away_team_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :away_team_id, Team.all.order(:long_name).collect {|l| [l.long_name, l.id]} %>
+      <%= f.select :away_team_id, Team.all.order(:location).collect {|l| [l.long_name, l.id]} %>
     </div>
   </div>
   <div class="control-group">
