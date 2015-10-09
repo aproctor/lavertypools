@@ -56,7 +56,9 @@
       <%= f.text_field :end_time, :class => 'text_field datepicker', :value => (@match.end_time || (Time.zone.now + 1.days)).to_formatted_s()  %>
     </div>
   </div>
-
+  <p>
+    Note: You can use EDT instead of UTC, but for reference time now UTC is <%=Time.now %>
+  </p>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
