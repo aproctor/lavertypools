@@ -29,7 +29,14 @@
         <% unless(hide_league) %>
         <td><%= match.league.long_name %></td>
         <% end %>
-        <td><%= match.start_time.in_time_zone('Eastern Time (US & Canada)').strftime("%a %l:%M %p %Y") %></td>
+        <%
+          if(match.start_time < Time.now - 1.month)
+            strformat = "%b %d, %Y"
+          else
+            strformat = "%a %l:%M %p"
+          end
+        %>
+        <td><%= match.start_time.in_time_zone('Eastern Time (US & Canada)').strftime(strformat) %></td>
         <% if(!hide_actions) %>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
