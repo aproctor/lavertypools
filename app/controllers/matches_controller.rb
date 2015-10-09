@@ -4,7 +4,11 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
   def index
-    @matches = Match.all
+    if(params[:all] == "true")
+      @matches = Match.all
+    else
+      @matches = Match.where("start_time > ?", Time.now - 1.months)
+    end
   end
 
   # GET /matches/1

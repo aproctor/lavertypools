@@ -5,6 +5,14 @@
 
 <%= render :partial => 'match_list', :locals => {matches: @matches} %>
 
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_match_path,
             :class => 'btn btn-primary' %>
+
+
+<% if(params[:all] != "true") %>
+<br />
+<br />
+<%= link_to "All Matches", matches_path(:all => "true") %>
+<% end %>
