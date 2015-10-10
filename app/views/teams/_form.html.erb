@@ -30,10 +30,13 @@
     </div>
   </div>
 
-<% league = @team.league || League.first %>
-  <div class="pick_link" style="background-image: url('/images/<%=league.name%>.jpg'); background-position: -<%=@team.logo_offset_x.to_i%>px -<%=@team.logo_offset_y.to_i%>px"></div>
+<% if(@team.league.nil? == false)%>
+  <div class="pick_link" style="background-image: url('/images/<%=@team.league.name%>.jpg'); background-position: -<%=@team.logo_offset_x.to_i%>px -<%=@team.logo_offset_y.to_i%>px"></div>
 
-  <img src="/images/<%=league.name%>.jpg" />
+  <img src="/images/<%=@team.league.name%>.jpg" />
+<% else %>
+ Reload to check team logo after league is saved
+<% end %>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
