@@ -5,7 +5,9 @@ module MatchesHelper
   end
 
   def leader_name(match)
-    if(match.spread_leader == 0)
+    if(match.spread_leader == -1)
+      return "Push"
+    elsif(match.spread_leader == 0)
       return match.home_team.long_name
     else
       return match.away_team.long_name
