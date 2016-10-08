@@ -8,6 +8,9 @@ class Pool < ActiveRecord::Base
   end
 
   def locked?
+    if(m.nil?)
+      puts "Strange, this match is nil****"
+    end
     # matches.each do |m|
     #   if(m.start_time < Time.zone.now)
     #     return true
