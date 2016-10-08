@@ -8,11 +8,11 @@ class Pool < ActiveRecord::Base
   end
 
   def locked?
-    matches.each do |m|
-      if(m.start_time < Time.zone.now)
-        return true
-      end
-    end
+    # matches.each do |m|
+    #   if(m.start_time < Time.zone.now)
+    #     return true
+    #   end
+    # end
     return false
   end
 end
