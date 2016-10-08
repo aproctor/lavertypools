@@ -31,7 +31,7 @@
         <td><%= match.league.long_name %></td>
         <% end %>
         <%
-          if(match.start_time < Time.now - 1.month)
+          if(match.start_time < Time.zone.now - 1.month)
             strformat = "%b %d, %Y"
           else
             strformat = "%a %l:%M %p"
