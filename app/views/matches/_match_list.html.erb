@@ -20,6 +20,7 @@
   </thead>
   <tbody>
     <% matches.each do |match| %>
+      <% next if match.nil? %>
       <tr>
         <td><%= link_to match_name(match.home_team, match.away_team), edit_match_path(match) %></td>
         <td><%= match.spread %></td>
