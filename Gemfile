@@ -9,7 +9,7 @@ gem 'rails', '4.0.0'
 group :production do
   gem 'pg'
 end
-gem 'mysql2', '~> 0.3.18'#, group: :development
+gem 'mysql2', '~> 0.3.18', group: :development
 
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 4.0.0'
