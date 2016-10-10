@@ -1,3 +1,5 @@
+require "chronic"
+
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :edit, :update, :destroy]
 
@@ -19,7 +21,7 @@ class MatchesController < ApplicationController
   # GET /matches/new
   def new
     @match = Match.new
-    @match.start_time = Time.zone.now()
+    @match.start_time = Chronic.parse("sunday at 3pm") #Time.zone.now()
     @match.end_time = @match.start_time + 3.hours
     @match.home_score = 0
     @match.away_score = 0
@@ -78,6 +80,13 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params.require(:match).permit(:start_time, :end_time, :home_team_id, :away_team_id, :spread, :home_score, :away_score, :league_id)
+      p = params.require(:match).permit(:start_time, :end_time, :home_team_id, :away_team_id, :spread, :home_score, :away_score, :league_id)
+      puts "PARAMS <#{p.inspect}>"
+      if(params[:simple_format])
+        p[:start_time] = Chronic.parse(params[:simple_date])
+        p[:end_time] = p[:start_time] + 3.hours
+      end
+
+      p
     end
 end

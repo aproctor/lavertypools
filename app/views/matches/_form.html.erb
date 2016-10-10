@@ -43,22 +43,34 @@
       <%= f.text_field :away_score, :class => 'text_field' %>
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :start_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :start_time, :class => 'text_field datepicker', :value => (@match.start_time || Time.zone.now).to_formatted_s()  %>
+  <input name="simple_format" id="simple_format" class="hidden" type="checkbox" checked  />
+  <div class="simple_date">
+    <div class="control-group">
+      <%= f.label :start_time, :class => 'control-label' %>
+      <div class="controls">
+       <input class="text_field" type="text" value="3pm sunday" name="simple_date" id="simple_date">
+       <a href="#" onclick="toggleDateMode(); return false">Advanced</a>
+      </div>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :end_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :end_time, :class => 'text_field datepicker', :value => (@match.end_time || (Time.zone.now + 1.days)).to_formatted_s()  %>
+  <div class="advanced_date" style="display:none;">
+    <div class="control-group">
+      <%= f.label :start_time, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :start_time, :class => 'text_field datepicker', :value => (@match.start_time || Time.zone.now).in_time_zone('Eastern Time (US & Canada)').to_formatted_s()  %>
+      </div>
     </div>
+    <div class="control-group">
+      <%= f.label :end_time, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :end_time, :class => 'text_field datepicker', :value => (@match.end_time || (Time.zone.now + 1.days)).in_time_zone('Eastern Time (US & Canada)').to_formatted_s()  %>
+      </div>
+    </div>
+    <a href="#" onclick="toggleDateMode(); return false">Simple Format</a>
+    <p>
+      Note: You can use EDT instead of UTC, but for reference time now UTC is <%=Time.now.in_time_zone('Eastern Time (US & Canada)').to_formatted_s() %>
+    </p>
   </div>
-  <p>
-    Note: You can use EDT instead of UTC, but for reference time now UTC is <%=Time.now %>
-  </p>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

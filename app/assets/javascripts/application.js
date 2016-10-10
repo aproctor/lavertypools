@@ -41,3 +41,10 @@ var setPick = function(pickEl, pickId, pickValue) {
   $formEl.find('#pick_winner_'+pickValue).prop('checked', true);
   $formEl.submit();
 };
+
+
+var toggleDateMode = function() {
+  $('.simple_date,.advanced_date').toggle('hidden');
+  var $check = $('#simple_format');
+  $check.prop('checked', !$check.prop('checked'));
+};
