@@ -6,6 +6,8 @@ class Player < ActiveRecord::Base
     score = 0
     picks = []
     pool.matches.each do |m|
+      next if !m.started?
+
       pick = Pick.find_by(:player => self, :pool => pool, :match => m)
       if(pick.present? && pick.winner == m.spread_leader)
         score += 1

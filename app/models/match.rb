@@ -35,4 +35,8 @@ class Match < ActiveRecord::Base
       return -1
     end
   end
+
+  def started?
+    return Time.zone.now > self.start_time
+  end
 end
