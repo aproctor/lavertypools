@@ -48,7 +48,7 @@
     <div class="control-group">
       <%= f.label :start_time, :class => 'control-label' %>
       <div class="controls">
-       <input class="text_field" type="text" value="<%=(@match.start_time||Time.zone.now).in_time_zone('Eastern Time (US & Canada)').strftime('%A at %l%p')%>" name="simple_date" id="simple_date">
+       <input class="text_field" type="text" value="<%=simple_time(@match.start_time||Time.zone.now)%>" name="simple_date" id="simple_date">
        <a href="#" onclick="toggleDateMode(); return false">Advanced</a>
       </div>
     </div>
