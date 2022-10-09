@@ -81,7 +81,6 @@ class MatchesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
       p = params.require(:match).permit(:start_time, :end_time, :home_team_id, :away_team_id, :spread, :home_score, :away_score, :league_id)
-      puts "PARAMS <#{p.inspect}>"
       if(params[:simple_format])
         p[:start_time] = Chronic.parse(params[:simple_date])
         p[:end_time] = p[:start_time] + 3.hours
