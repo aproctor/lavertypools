@@ -27,10 +27,8 @@ test:
   username: root
   password: password
 production:
-  adapter: postgresql
+  # Supplied by the host (Render/Fly both inject this when you attach a
+  # Postgres database to the app) — nothing to fill in here.
+  url: <%= ENV["DATABASE_URL"] %>
   encoding: unicode
-  database: d19gidtfs8jncj
   pool: 5
-  username: vxvcuewnmzmgki
-  password: NT8WFAFsSA31Gj7OTPo5bOX5aU
-  port: 5432

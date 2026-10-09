@@ -1,0 +1,14 @@
+.git
+.gitignore
+log/*
+tmp/*
+db/*.sqlite3
+.bundle
+vendor/bundle
+coverage/
+*.dump
+README*
+CLAUDE.md
+RUNBOOK.md
+render.yaml
+fly.toml

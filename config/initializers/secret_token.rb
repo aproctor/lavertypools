@@ -9,4 +9,11 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Pools::Application.config.secret_key_base = '793c60fabc88511a39b579055ed382bf65596a2aab49bde5675c9faceeb66542d1adcd0dc3e10286c1c3ffbc14207f988b0f87d991dde13f2fa16c4264935f00'
+#
+# Read from the environment (set it as a secret on whatever host runs this)
+# instead of hardcoding it, so this file is safe to commit. Falls back to a
+# random per-boot value so things like `rake assets:precompile` still work
+# when SECRET_KEY_BASE isn't set (e.g. during a Docker build).
+require 'securerandom'
+Pools::Application.config.secret_key_base =
+  ENV.fetch('SECRET_KEY_BASE') { SecureRandom.hex(64) }

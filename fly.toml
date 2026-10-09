@@ -1,0 +1,25 @@
+# Fly.io config — the pay-per-second alternative to Render if the free
+# tier's 15-min sleep/cold-start is annoying during your live week. There's
+# no free tier on Fly anymore, so the intended pattern (see RUNBOOK.md) is:
+# create the app + Postgres fresh each year, restore latest.dump, run your
+# week, dump + `fly apps destroy` when done — don't leave it provisioned
+# year-round, since a scaled-to-zero volume still bills for storage.
+app = "lavertypools"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  RAILS_ENV = "production"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
