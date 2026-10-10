@@ -6,20 +6,24 @@
 # this image's (Debian Jessie) base.
 FROM ruby:2.2.5
 
-# Debian Jessie was pulled from the regular apt mirror network and now only
-# lives on archive.debian.org, with no currently-valid Release file. Point
-# apt there and skip the timestamp check so `apt-get update` still works.
-RUN sed -i \
-      -e 's|deb.debian.org|archive.debian.org|g' \
-      -e 's|security.debian.org|archive.debian.org/debian-security|g' \
-      /etc/apt/sources.list \
- && apt-get -o Acquire::Check-Valid-Until=false update \
- && apt-get install -y --no-install-recommends \
-      build-essential \
-      libpq-dev \
-      zlib1g-dev \
-      patch \
-      python \
+# Debian Jessie (this image's base OS) was pulled from the live apt mirror
+# network; archive.debian.org is the only place left to fetch from, and it
+# serves Release files with a permanently-expired timestamp and no
+# currently-trusted signature. `trusted=yes` + `check-valid-until=no` skip
+# both checks for this one legacy repo — fine for a pinned, immutable base
+# image's build-time toolchain, not a runtime trust boundary.
+#
+# Everything this app needs to compile (gcc/g++/make, libpq-dev, zlib1g-dev,
+# patch, ...) is already present in the base image — it's what was used to
+# build Ruby itself. The one thing missing is `python`, needed by
+# therubyracer's bundled V8 (libv8), which still uses the old Python-based
+# gyp build system.
+RUN printf '%s\n' \
+      'deb [check-valid-until=no trusted=yes] http://archive.debian.org/debian jessie main' \
+      'deb [check-valid-until=no trusted=yes] http://archive.debian.org/debian-security jessie/updates main' \
+      > /etc/apt/sources.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends python \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
