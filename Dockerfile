@@ -13,7 +13,7 @@ FROM ruby:2.2.5
 # fresh container defaults to UTC and every simple-entered time comes out
 # wrong. Pin it explicitly so the behavior doesn't depend on host defaults.
 # Change this if the pool organizer entering match times isn't in Pacific.
-ENV TZ=America/Los_Angeles
+ENV TZ=America/New_York
 
 # Debian Jessie (this image's base OS) was pulled from the live apt mirror
 # network; archive.debian.org is the only place left to fetch from, and it
