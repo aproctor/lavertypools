@@ -6,6 +6,15 @@
 # this image's (Debian Jessie) base.
 FROM ruby:2.2.5
 
+# MatchesController's "simple date" field (Chronic.parse) has no concept of
+# Rails' Time.zone — it reads the process's OS timezone to interpret
+# zone-less input like "Sunday at 1pm". The old Heroku deploy had this set
+# (likely via a dashboard config var, invisible to this repo); without it a
+# fresh container defaults to UTC and every simple-entered time comes out
+# wrong. Pin it explicitly so the behavior doesn't depend on host defaults.
+# Change this if the pool organizer entering match times isn't in Pacific.
+ENV TZ=America/Los_Angeles
+
 # Debian Jessie (this image's base OS) was pulled from the live apt mirror
 # network; archive.debian.org is the only place left to fetch from, and it
 # serves Release files with a permanently-expired timestamp and no

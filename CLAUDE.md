@@ -59,6 +59,8 @@ Team logos are sprite offsets, not individual images. `pick_link` builds `backgr
 
 Times are stored in UTC and displayed in `'Eastern Time (US & Canada)'`, hardcoded at each call site (`matches/_match_list.html.erb`, `ApplicationHelper#simple_time`) — `config.time_zone` is not set. `MatchesController` accepts a natural-language date via `Chronic` when `params[:simple_format]` is present (the "simple date" toggle in the match form), and always derives `end_time` as `start_time + 3.hours`. Prefer `Time.zone.now` over `Time.now`; both appear in the codebase.
 
+**`Chronic.parse` is zone-blind** — it has no idea about Rails' `Time.zone` and resolves ambiguous input like "Sunday at 1pm" using the process's OS-level `TZ` environment variable. The `Dockerfile` pins `ENV TZ=America/Los_Angeles` to match what the old Heroku deploy apparently had set (as a dashboard config var, so it wasn't visible in this repo) — if whoever enters match times via the simple-date field isn't in Pacific, change that one line rather than anything in the controller.
+
 Note `ApplicationHelper#simple_time` still contains leftover `puts` debugging.
 
 ## Gotchas
