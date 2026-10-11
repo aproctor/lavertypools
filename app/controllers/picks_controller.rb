@@ -45,7 +45,7 @@ class PicksController < ApplicationController
   def update
     respond_to do |format|
       if @pick.update(pick_params)
-        format.html { redirect_to pools_path(@pick.pool), notice: 'Pick was successfully updated.' }
+        format.html { redirect_to picks_setup_path(pick_params), notice: 'Pick was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

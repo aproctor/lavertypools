@@ -16,16 +16,25 @@
 #
 
 development:
+<% if ENV['DATABASE_URL'] %>
+  # Set by docker-compose.yml, pointing at its Postgres container (restored
+  # from a production .dump — see RUNBOOK.md). Falls back to local MySQL
+  # below when running natively without Docker.
+  url: <%= ENV['DATABASE_URL'] %>
+<% else %>
   adapter: mysql2
   database: pools_development
   username: root
   password:
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+<% end %>
 
 test:
   adapter: mysql2
   database: pools_test
   username: root
   password: password
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
 production:
   # Supplied by the host (Render/Fly both inject this when you attach a
   # Postgres database to the app) — nothing to fill in here.

@@ -1,0 +1,29 @@
+# Local development image — same old Ruby/toolchain as Dockerfile (see its
+# comments for why), but keeps the :development group (mysql2, byebug-style
+# tools if added later) and skips asset precompile/--deployment so a bind
+# mount of the working tree just works and gems live outside /app.
+FROM ruby:2.2.5
+
+ENV TZ=America/New_York
+
+RUN printf '%s\n' \
+      'deb [check-valid-until=no trusted=yes] http://archive.debian.org/debian jessie main' \
+      'deb [check-valid-until=no trusted=yes] http://archive.debian.org/debian-security jessie/updates main' \
+      > /etc/apt/sources.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends python \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN gem install bundler -v 1.13.2 --no-document
+
+COPY Gemfile Gemfile.lock ./
+# No --deployment: gems install to the image's default $BUNDLE_PATH
+# (/usr/local/bundle, set by the base image), which sits outside /app, so
+# bind-mounting the working tree over /app in docker-compose doesn't shadow
+# them. Keeps the :development group (mysql2) and :test, only drops :doc.
+RUN bundle _1.13.2_ install --without doc --jobs 4
+
+EXPOSE 3000
+CMD ["bundle", "_1.13.2_", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]

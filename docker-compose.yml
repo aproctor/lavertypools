@@ -1,0 +1,38 @@
+# Local dev only (see Dockerfile.dev) — not used for deploys.
+#
+# Runs Postgres instead of reusing the host's MySQL: it matches production's
+# adapter exactly, and you already have real data in latest.dump that
+# pg_restore can drop straight in — much more useful for debugging than an
+# empty dev schema you'd have to populate by hand through the admin UI.
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pools_dev_password
+      POSTGRES_DB: pools_development
+    ports:
+      - "5432:5432"   # exposed so you can pg_restore from the host directly
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://postgres:pools_dev_password@db:5432/pools_development
+    stdin_open: true
+    tty: true
+
+volumes:
+  pg_data:
+  bundle_cache:
